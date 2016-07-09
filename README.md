@@ -15,6 +15,9 @@
  ░░░░░░░░░░
 
 
+ git            > global git configuration and settings
+ terminator     > terminator terminal emulator settings, themes, etc
+ vim            > vimrc setup and plugin definitions
  zsh            > zshell settings, aliases, and custom prompts (oh-my-zsh is required!)
 ```
 
@@ -26,6 +29,7 @@
  - [installing](#installing)
  - [how it works](#how-it-works)
  - [tl;dr](#tldr)
+ - [vim](#vim)
 
 #dotfiles
 in the unix world programs are commonly configured in two different ways, via shell arguments or text based configuration files. programs with many options like window managers or text editors are configured on a per-user basis with files in your home directory `~`. in unix like operating systems any file or directory name that starts with a period or full stop character is considered hidden, and in a default view will not be displayed. thus the name dotfiles. 
@@ -103,3 +107,5 @@ install herbstluftwm
 
 etc, etc, etc...
 
+#vim
+Vim is my editor of choice. To get started, run `vim` and use the `:PlugInstall` command to download all of the plugin goodies. You can find a list of the plugins in the `.vimrc` file.
