@@ -264,9 +264,9 @@ nmap ]g :tabnext<return>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Color scheme setup
 "
-set background=dark
+set background=light
 let g:solarized_termcolors=256
-colorscheme fu
+colorscheme triplejelly
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
