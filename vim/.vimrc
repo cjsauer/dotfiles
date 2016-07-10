@@ -49,6 +49,9 @@ set nolist " list disables linebreak
 set textwidth=0
 set wrapmargin=0
 
+" Turn on line numbers
+set number
+
 " Spell check commit messages, text, and markdown files
 autocmd BufNewFile,BufRead *.md setlocal spell
 autocmd BufNewFile,BufRead *.txt setlocal spell
