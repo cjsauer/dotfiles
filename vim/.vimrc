@@ -66,6 +66,9 @@ while c <= 'z'
   let c = nr2char(1+char2nr(c))
 endw
 
+" Get rid of the delay when pressing the ESC key to exit insert mode
+set timeoutlen=1000 ttimeoutlen=0
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Moving around
 "
@@ -181,11 +184,17 @@ Plug 'honza/vim-snippets'
 " Vim auto-completion support
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --tern-completer' }
 
+" Helpful for making YCM and Ultisnips play nice together
+Plug 'ervandew/supertab'
+
 " Add git flags support to NerdTree
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " A light and configurable status/tab line
 Plug 'itchyny/lightline.vim'
+
+" Visually display indent levels
+Plug 'Yggdroot/indentLine'
 
 " Color schemes!
 Plug 'flazz/vim-colorschemes'
@@ -250,7 +259,7 @@ nmap ]g :tabnext<return>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Color scheme set up
+" Color scheme setup
 "
 set background=dark
 let g:solarized_termcolors=256
@@ -258,8 +267,16 @@ colorscheme fu
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" YouCompleteMe setup
+"
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " UltiSnips setup
 "
-let g:UltiSnipsExpandTrigger="<c-s>"
-let g:UltiSnipsJumpForwardTrigger="<c-n>"
-let g:UltiSnipsJumpBackwardTrigger="<c-p>"
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
