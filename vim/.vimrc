@@ -184,6 +184,18 @@ Plug 'flazz/vim-colorschemes'
 " Allow for pressing F8 to cycle through themes
 Plug 'felixhummel/setcolors.vim'
 
+" Interactive command execution
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+
+" Indenting for JavaScript and TypeScript files
+Plug 'jason0x43/vim-js-indent', { 'for': ['javascript', 'typescript'] }
+
+" TypeScript syntax and highlighting
+Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+
+" TypeScript IDE goodies
+Plug 'Quramy/tsuquyomi', { 'for': 'typescript' }
+
 call plug#end()
 
 
@@ -198,7 +210,7 @@ let g:ctrlp_show_hidden = 1
 
 " Ignore some files when fuzzy searching
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.?(git|hg|svn|meteor|bundle|node_modules|bower_components)$',
+  \ 'dir':  '\v[\/]\.?(git|hg|svn|meteor|bundle|node_modules|bower_components|dist)$',
   \ 'file': '\v\.(so|swp|zip)$'
   \ }
 
