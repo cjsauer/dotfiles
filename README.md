@@ -108,4 +108,10 @@ install herbstluftwm
 etc, etc, etc...
 
 #vim
-Vim is my editor of choice. To get started, run `vim` and use the `:PlugInstall` command to download all of the plugin goodies. You can find a list of the plugins in the `.vimrc` file.
+Vim is my editor of choice. To get started, first grab a couple dependencies for building YouCompleteMe:
+
+```
+sudo apt-get install build-essential cmake
+```
+
+Now run `vim` and use the `:PlugInstall` command to download all of the plugin goodies. You can find a list of the plugins in the `.vimrc` file.

@@ -172,6 +172,15 @@ Plug 'scrooloose/nerdtree'
 " Fuzzy file finder
 Plug 'ctrlpvim/ctrlp.vim'
 
+" The ultimate snippet solution
+Plug 'SirVer/ultisnips'
+
+" Giant collection of snippets
+Plug 'honza/vim-snippets'
+
+" Vim auto-completion support
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --tern-completer' }
+
 " Add git flags support to NerdTree
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
@@ -246,3 +255,11 @@ nmap ]g :tabnext<return>
 set background=dark
 let g:solarized_termcolors=256
 colorscheme fu
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" UltiSnips setup
+"
+let g:UltiSnipsExpandTrigger="<c-s>"
+let g:UltiSnipsJumpForwardTrigger="<c-n>"
+let g:UltiSnipsJumpBackwardTrigger="<c-p>"
