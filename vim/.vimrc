@@ -15,9 +15,6 @@ set history=700
 let mapleader = ","
 let g:mapleader = ","
 
-" Remap kj to ESC for easier mode switching
-inoremap kj <Esc>`^
-
 " Quickly source this file
 nnoremap <leader>sv :source ~/.vimrc<return>
 
