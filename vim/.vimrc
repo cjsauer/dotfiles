@@ -217,6 +217,12 @@ Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 " TypeScript IDE goodies
 Plug 'Quramy/tsuquyomi', { 'for': 'typescript' }
 
+" Clojure editing hotness
+Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+Plug 'vim-scripts/paredit.vim', { 'for': 'clojure' }
+Plug 'venantius/vim-cljfmt', { 'for': 'clojure' }
+Plug 'kien/rainbow_parentheses.vim', { 'for': 'clojure' }
+
 call plug#end()
 
 
