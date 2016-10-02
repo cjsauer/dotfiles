@@ -221,7 +221,7 @@ Plug 'Quramy/tsuquyomi', { 'for': 'typescript' }
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'vim-scripts/paredit.vim', { 'for': 'clojure' }
 Plug 'venantius/vim-cljfmt', { 'for': 'clojure' }
-Plug 'kien/rainbow_parentheses.vim', { 'for': 'clojure' }
+Plug 'guns/vim-slamhound', { 'for': 'clojure' }
 
 call plug#end()
 
@@ -289,3 +289,10 @@ let g:SuperTabDefaultCompletionType = '<C-n>'
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Fireplace and Clojure hotkeys
+"
+au Filetype clojure nmap <c-c><c-k> :Require<cr>  
+nnoremap <leader>sh :Slamhound<CR>
