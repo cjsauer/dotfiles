@@ -53,7 +53,10 @@ plugins=(git)
 
 # User configuration
 
-# export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+# Android SDK
+export ANDROID_HOME=~/Android/Sdk
+
+export PATH=${PATH}:${ANDROID_HOME}/tools
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
