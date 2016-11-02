@@ -3,3 +3,5 @@
 	name = Calvin Sauer
 [push]
 	default = simple
+[core]
+	autocrlf = input

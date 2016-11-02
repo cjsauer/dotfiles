@@ -56,7 +56,7 @@ plugins=(git)
 # Android SDK
 export ANDROID_HOME=~/Android/Sdk
 
-export PATH=${PATH}:${ANDROID_HOME}/tools
+export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
