@@ -72,6 +72,9 @@ endw
 " Get rid of the delay when pressing the ESC key to exit insert mode
 set timeoutlen=1000 ttimeoutlen=0
 
+" Force escape key to output <C-c> to make it work when recording macros
+inoremap <Esc> <C-c>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Moving around
 "
@@ -130,6 +133,9 @@ set wildmode=longest:full,full
 
 " Ignore files in the wildmenu
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,.meteor/*
+
+" Do not conceal quotes in JSON files
+set conceallevel=0
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""

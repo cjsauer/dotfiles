@@ -1,4 +1,7 @@
 *.swp
+*.old
 vim/.vim/plugged/
 vim/.vim/.netrwhist
 *.log
+lein/.lein/
+!lein/.lein/profiles.clj
