@@ -146,6 +146,17 @@ autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Macros
+"
+" Allow executing of macros over a visual range
+xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
+function! ExecuteMacroOverVisualRange()
+  echo "@".getcmdline()
+  execute ":'<,'>normal @".nr2char(getchar())
+endfunction
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Plugins
 "
