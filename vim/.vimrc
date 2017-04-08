@@ -2,8 +2,87 @@
 " VIM SETTINGS
 "
 "
+"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" General
+"
+" Plugins
+"
+call plug#begin('~/.vim/plugged')
+
+" Get some sensible default settings
+Plug 'tpope/vim-sensible'
+
+" Yank and delete without worry
+Plug 'vim-scripts/YankRing.vim'
+
+" Handy mappings for deleting, changing, and adding parenthesis, brackets, etc
+Plug 'tpope/vim-surround'
+
+" Easier moving around between tabs, args, etc
+Plug 'tpope/vim-unimpaired'
+
+" Helpful commenting mappings
+Plug 'tpope/vim-commentary'
+
+" Add . repeat support for many plugins
+Plug 'tpope/vim-repeat'
+
+" Useful git mappings
+Plug 'tpope/vim-fugitive'
+
+" Helpful git icons in the gutter
+Plug 'airblade/vim-gitgutter'
+
+" Nice visualization of directories
+Plug 'scrooloose/nerdtree'
+
+" Fuzzy file finder
+Plug 'ctrlpvim/ctrlp.vim'
+
+" Syntax checking
+Plug 'vim-syntastic/syntastic'
+
+" The ultimate snippet solution
+Plug 'SirVer/ultisnips'
+
+" Giant collection of snippets
+Plug 'honza/vim-snippets'
+
+" Vim auto-completion support
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+
+" Helpful for making YCM and Ultisnips play nice together
+Plug 'ervandew/supertab'
+
+" Add git flags support to NerdTree
+Plug 'Xuyuanp/nerdtree-git-plugin'
+
+" A light and configurable status/tab line
+Plug 'itchyny/lightline.vim'
+
+" Visually display indent levels
+Plug 'Yggdroot/indentLine'
+
+" Color schemes!
+Plug 'flazz/vim-colorschemes'
+
+" Allow for pressing F8 to cycle through themes
+Plug 'felixhummel/setcolors.vim'
+
+" Interactive command execution
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+
+" Clojure editing hotness
+Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+Plug 'vim-scripts/paredit.vim', { 'for': 'clojure' }
+Plug 'venantius/vim-cljfmt', { 'for': 'clojure' }
+Plug 'guns/vim-slamhound', { 'for': 'clojure' }
+Plug 'venantius/vim-eastwood', { 'for': 'clojure' }
+
+call plug#end()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" General editor settings
 "
 set nocompatible
 filetype off
@@ -155,94 +234,6 @@ function! ExecuteMacroOverVisualRange()
   execute ":'<,'>normal @".nr2char(getchar())
 endfunction
 
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" Plugins
-"
-call plug#begin('~/.vim/plugged')
-
-" Get some sensible default settings
-Plug 'tpope/vim-sensible'
-
-" Yank and delete without worry
-Plug 'maxbrunsfeld/vim-yankstack'
-
-" Auto-close parens, brackets, quotes, etc.
-Plug 'jiangmiao/auto-pairs'
-
-" Handy mappings for deleting, changing, and adding parenthesis, brackets, etc
-Plug 'tpope/vim-surround'
-
-" Easier moving around between tabs, args, etc
-Plug 'tpope/vim-unimpaired'
-
-" Helpful commenting mappings
-Plug 'tpope/vim-commentary'
-
-" Add . repeat support for many plugins
-Plug 'tpope/vim-repeat'
-
-" Useful git mappings
-Plug 'tpope/vim-fugitive'
-
-" Helpful git icons in the gutter
-Plug 'airblade/vim-gitgutter'
-
-" Nice visualization of directories
-Plug 'scrooloose/nerdtree'
-
-" Fuzzy file finder
-Plug 'ctrlpvim/ctrlp.vim'
-
-" The ultimate snippet solution
-Plug 'SirVer/ultisnips'
-
-" Giant collection of snippets
-Plug 'honza/vim-snippets'
-
-" Vim auto-completion support
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --tern-completer' }
-
-" Helpful for making YCM and Ultisnips play nice together
-Plug 'ervandew/supertab'
-
-" Add git flags support to NerdTree
-Plug 'Xuyuanp/nerdtree-git-plugin'
-
-" A light and configurable status/tab line
-Plug 'itchyny/lightline.vim'
-
-" Visually display indent levels
-Plug 'Yggdroot/indentLine'
-
-" Color schemes!
-Plug 'flazz/vim-colorschemes'
-
-" Allow for pressing F8 to cycle through themes
-Plug 'felixhummel/setcolors.vim'
-
-" Interactive command execution
-Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-
-" Indenting for JavaScript and TypeScript files
-Plug 'jason0x43/vim-js-indent', { 'for': ['javascript', 'typescript'] }
-
-" TypeScript syntax and highlighting
-Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
-
-" TypeScript IDE goodies
-Plug 'Quramy/tsuquyomi', { 'for': 'typescript' }
-
-" Clojure editing hotness
-Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
-Plug 'vim-scripts/paredit.vim', { 'for': 'clojure' }
-Plug 'venantius/vim-cljfmt', { 'for': 'clojure' }
-Plug 'guns/vim-slamhound', { 'for': 'clojure' }
-
-call plug#end()
-
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CtrlP Configuration
 "
@@ -287,26 +278,14 @@ nmap ]g :tabnext<return>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Color scheme setup
 "
-set background=light
+set background=dark
 let g:solarized_termcolors=256
-colorscheme triplejelly
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" YouCompleteMe setup
-"
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
-
+colorscheme gruvbox
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " UltiSnips setup
 "
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-
+let g:UltiSnipsExpandTrigger="<c-j>"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Fireplace and Clojure hotkeys
