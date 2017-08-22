@@ -72,6 +72,9 @@ Plug 'felixhummel/setcolors.vim'
 " Interactive command execution
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 
+" Zen mode
+Plug 'junegunn/goyo.vim'
+
 " Clojure editing hotness
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'vim-scripts/paredit.vim', { 'for': 'clojure' }
@@ -94,8 +97,9 @@ set history=700
 let mapleader = ","
 let g:mapleader = ","
 
-" Quickly source this file
+" Quickly source and edit this file
 nnoremap <leader>sv :source ~/.vimrc<return>
+nnoremap <leader>ev :edit ~/.vimrc<return>
 
 " Set to auto read when a file is changed from the outside
 set autoread
@@ -162,6 +166,12 @@ nmap <c-j> <c-w>j
 nmap <c-k> <c-w>k
 nmap <c-l> <c-w>l
 nmap <c-h> <c-w>h
+
+" Faster window manipulation
+nmap <leader>wc <c-w>c
+nmap <leader>wo <c-w>o
+nmap <leader>wv <c-w>v
+nmap <leader>ws <c-w>s
 
 " Treat long lines as break lines (useful when moving around in them)
 map j gj
