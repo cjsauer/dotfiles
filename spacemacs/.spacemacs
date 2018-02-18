@@ -318,10 +318,10 @@ you should place your code here."
    multi-term-program "/usr/bin/zsh"
    clojure-indent-style :always-align
    projectile-project-root-files '("rebar.config" "project.clj" "build.boot" "SConstruct" "pom.xml" "build.sbt" "gradlew" "build.gradle" "Gemfile" "requirements.txt" "setup.py" "tox.ini" "package.json" "gulpfile.js" "Gruntfile.js" "bower.json" "composer.json" "Cargo.toml" "mix.exs" "stack.yaml" "info.rkt" "TAGS" "GTAGS" ".meteor" ".dropbox" ".git" ".hg" ".svn")
-   ))
+   )
 
-;; Evaluate and comment shortcut
-(spacemacs/set-leader-keys-for-major-mode 'clojure-mode "ec" 'cider-eval-defun-to-comment)
+  ;; Evaluate and comment shortcut
+  (spacemacs/set-leader-keys-for-major-mode 'clojure "ec" 'cider-eval-defun-to-comment))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
