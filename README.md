@@ -5,10 +5,10 @@ Various *NIX dotfiles that I've collected over the years.
 GNU stow is the only dependency:
 
 ```bash
-;; Linux
+# Linux
 sudo apt-get install stow
 
-;; Mac
+# Mac
 brew install stow
 ```
 
