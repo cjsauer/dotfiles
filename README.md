@@ -1,4 +1,4 @@
-Various *NIX dotfiles that I've collected over the years.
+Various *NIX dotfiles that I've configured over the years.
 
 ## Requirements
 
