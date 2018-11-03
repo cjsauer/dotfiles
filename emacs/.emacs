@@ -140,6 +140,9 @@
    "gs"  'magit-status
    "ga"  'magit-stage
    "gc"  'magit-commit
+   "gp"  'magit-push-popup
+   "gd"  'magit-diff-buffer-file
+   "gD"  'magit-diff-popup
    )
 
   ;; Vim normal mode keybindings
