@@ -37,10 +37,10 @@
   (evil-escape-mode 1))
 
 ;; Auto-completion
-(use-package auto-complete
+(use-package company
   :ensure t
   :config
-  (ac-config-default))
+  (global-company-mode))
 
 ;; Helm - Incremental completion and narrowing selections
 (use-package helm
