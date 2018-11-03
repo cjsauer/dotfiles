@@ -1,6 +1,7 @@
 ;; Minimal UI
 (tool-bar-mode -1)
 (tooltip-mode -1)
+(scroll-bar-mode -1)
 
 ;; Shhh
 (setq ring-bell-function (quote ignore))
@@ -22,6 +23,15 @@
   (package-refresh-contents)
   (package-install 'use-package))
 (require 'use-package)
+
+;; Doom themes
+(use-package doom-themes
+  :ensure t
+  :init
+  (setq doom-themes-enable-bold t
+	doom-themes-enable-italic t)
+  :config
+  (load-theme 'doom-one t))
 
 ;; Vim mode
 (use-package evil
@@ -89,11 +99,16 @@
   :config
   (helm-projectile-on))
 
+;; Git support
+(use-package magit
+  :ensure t)
+
 ;; Custom keybindings
 (use-package general
   :ensure t
   :config
   
+  ;; Spacebar keybindings
   (general-define-key
    :states '(normal visual insert emacs)
    :prefix "SPC"
@@ -116,13 +131,25 @@
    "wh"  '(evil-window-left :which-key "left")
    "wl"  '(evil-window-right :which-key "right")
    "wd"  '(evil-window-delete :which-key "delete")
+
+   ;;;; Buffers
+   "bb"  '(helm-buffers-list :which-key "find/list buffers")
+   "bd"  '(evil-delete-buffer :which-key "delete buffer")
    )
+
+  ;; Vim normal mode keybindings
+  (general-define-key
+   :states '(normal emacs)
+   "C-u" 'evil-scroll-up
+   "[b"  'evil-prev-buffer
+   "]b"  'evil-next-buffer)
 
   ;; Which-key prefix titles
   (which-key-add-key-based-replacements
     "SPC p" "projectile"
     "SPC f" "files"
-    "SPC w" "windows"))
+    "SPC w" "windows"
+    "SPC b" "buffers"))
 
 ;; Custom
 (custom-set-variables
@@ -130,7 +157,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (evil-escape evil use-package))))
+ '(package-selected-packages (quote (magit doom-themes evil-escape evil use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
