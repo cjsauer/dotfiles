@@ -135,6 +135,11 @@
    ;;;; Buffers
    "bb"  '(helm-buffers-list :which-key "find/list buffers")
    "bd"  '(evil-delete-buffer :which-key "delete buffer")
+
+   ;;;; Git
+   "gs"  'magit-status
+   "ga"  'magit-stage
+   "gc"  'magit-commit
    )
 
   ;; Vim normal mode keybindings
@@ -149,7 +154,8 @@
     "SPC p" "projectile"
     "SPC f" "files"
     "SPC w" "windows"
-    "SPC b" "buffers"))
+    "SPC b" "buffers"
+    "SPC g" "git"))
 
 ;; Custom
 (custom-set-variables
