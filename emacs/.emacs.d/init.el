@@ -1,3 +1,7 @@
+;;;; Package --- init.el
+;;;; Commentary:
+;;;; Code:
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; Emacs Configuration
@@ -13,7 +17,7 @@
 (setq ring-bell-function (quote ignore))
 
 ;; Parentheses
-(setq show-paren-delay 0)
+(setq-default show-paren-delay 0)
 (show-paren-mode 1)
 (electric-pair-mode 1)
 
@@ -80,16 +84,16 @@
   :ensure t
   :init
   (require 'helm-config)
-  (setq helm-M-x-fuzzy-match t
-	helm-mode-fuzzy-match t
-	helm-buffers-fuzzy-matching t
-	helm-recentf-fuzzy-match t
-	helm-locate-fuzzy-match t
-	helm-semantic-fuzzy-match t
-	helm-imenu-fuzzy-match t
-	helm-completion-in-region-fuzzy-match t
-	helm-candidate-number-list 150
-	helm-split-window-in-side-p t
+  (setq-default helm-M-x-fuzzy-match t
+		helm-mode-fuzzy-match t
+		helm-buffers-fuzzy-matching t
+		helm-recentf-fuzzy-match t
+		helm-locate-fuzzy-match t
+		helm-semantic-fuzzy-match t
+		helm-imenu-fuzzy-match t
+		helm-completion-in-region-fuzzy-match t
+		helm-candidate-number-list 150)
+  (setq helm-split-window-inside-p t
 	helm-move-to-line-cycle-in-source t
 	helm-echo-input-in-header-line t
 	helm-autoresize-max-height 0
@@ -140,7 +144,8 @@
 ;; https://github.com/noctuid/general.el#general-examples
 
 (defmacro general-define-SPC-key (&rest bindings)
-  (print bindings)
+  "Temporary macro about to be replaced for something better.
+BINDINGS - the bindings"
   `(general-define-key
     :states '(normal emacs)
     :prefix "SPC"
@@ -188,7 +193,7 @@
  "]b"  'evil-next-buffer)
 
 ;; More informative which-key prefix titles
-(which-key-declare-prefixes
+(which-key-add-key-based-replacements
   "SPC p" "projectile"
   "SPC f" "files"
   "SPC w" "windows"
@@ -200,6 +205,18 @@
 ;; Language support
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; syntax checking
+(use-package flycheck
+  :ensure t
+  :config
+  (global-flycheck-mode))
+
+;; PATH fix for MacOS
+(use-package exec-path-from-shell
+  :ensure t
+  :config
+  (exec-path-from-shell-initialize))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Lisp(s)
@@ -234,7 +251,7 @@
   "eb" 'slime-eval-buffer
   "ee" 'slime-eval-last-expression)
 
-(which-key-declare-prefixes-for-mode 'lisp-mode
+(which-key-add-major-mode-key-based-replacements 'lisp-mode
   ",e" "eval"
   ",s" "repl")
 
@@ -242,13 +259,24 @@
 ;; Clojure
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Rust 
+;; Rust
 
 (use-package rust-mode
   :ensure t)
 
 (use-package cargo
   :ensure t)
+
+(use-package racer
+  :ensure t
+  :config
+  (add-hook 'rust-mode-hook #'racer-mode)
+  (add-hook 'racer-mode-hook #'eldoc-mode))
+
+(use-package flycheck-rust
+  :ensure t
+  :config
+  (add-hook 'rust-mode-hook #'flycheck-rust-setup))
 
 (add-hook 'rust-mode-hook 'cargo-minor-mode)
 
@@ -257,7 +285,7 @@
   "eb" 'cargo-process-build
   "er" 'cargo-process-run)
 
-(which-key-declare-prefixes-for-mode 'rust-mode
+(which-key-add-major-mode-key-based-replacements 'rust-mode
   ",e" "cargo")
 
 (custom-set-variables
@@ -267,7 +295,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (slime cargo rust-mode evil-surround paredit general magit helm-projectile projectile which-key helm company evil-escape evil-leader doom-themes use-package))))
+    (flycheck-rust exec-path-from-shell flycheck racer slime cargo rust-mode evil-surround paredit general magit helm-projectile projectile which-key helm company evil-escape evil-leader doom-themes use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
