@@ -94,7 +94,6 @@
 (use-package evil
   :ensure t
   :config
-  (unbind-key (kbd ",") evil-motion-state-map)
   (evil-mode 1))
 
 (use-package evil-escape
