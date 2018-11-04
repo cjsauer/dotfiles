@@ -218,6 +218,7 @@
  "gp"  'magit-push-popup
  "gd"  'magit-diff-buffer-file
  "gD"  'magit-diff-popup
+ "gl"  'magit-log-all
  )
 
 ;; Vim normal mode keybindings
