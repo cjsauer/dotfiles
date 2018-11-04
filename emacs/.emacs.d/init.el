@@ -21,6 +21,11 @@
 (show-paren-mode 1)
 (electric-pair-mode 1)
 
+;; Constants
+(defconst my-leader-key ",")
+(defconst my-prefix-key "SPC")
+(defconst my-non-normal-prefix-key "M-SPC")
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; Package installation/configuration
@@ -140,19 +145,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-;; TODO: replace this function with general's prefix key helpers
-;; https://github.com/noctuid/general.el#general-examples
+(general-create-definer defprefixkeys
+  :states '(normal emacs)
+  :prefix my-prefix-key
+  :non-normal-prefix my-non-normal-prefix-key)
 
-(defmacro general-define-SPC-key (&rest bindings)
-  "Temporary macro about to be replaced for something better.
-BINDINGS - the bindings"
-  `(general-define-key
-    :states '(normal emacs)
-    :prefix "SPC"
-    :non-normal-prefix "M-SPC"
-    ,@bindings))
-
-(general-define-SPC-key
+(defprefixkeys
  ;; Spacemacs style M-x menu
  "SPC" '(helm-M-x :which-key "M-x")
 
@@ -229,15 +227,12 @@ BINDINGS - the bindings"
   :config
   (setq inferior-lisp-program "sbcl"))
 
-(general-define-SPC-key
+(defprefixkeys
  ;; lispy edits
  "kw" 'paredit-wrap-sexp
  "ks" 'paredit-forward-slurp-sexp
  "kb" 'paredit-backward-slurp-sexp
  "kk" 'paredit-kill)
-
-(which-key-add-key-based-replacements
-  "SPC k" "lisp/paredit")
 
 (evil-leader/set-key-for-mode 'emacs-lisp-mode
   "eb" 'eval-buffer
@@ -250,6 +245,9 @@ BINDINGS - the bindings"
   "sq" 'slime-quit-lisp
   "eb" 'slime-eval-buffer
   "ee" 'slime-eval-last-expression)
+
+(which-key-add-key-based-replacements
+  "SPC k" "lisp/paredit")
 
 (which-key-add-major-mode-key-based-replacements 'lisp-mode
   ",e" "eval"
@@ -265,7 +263,9 @@ BINDINGS - the bindings"
   :ensure t)
 
 (use-package cargo
-  :ensure t)
+  :ensure t
+  :config
+  (add-hook 'rust-mode-hook 'cargo-minor-mode))
 
 (use-package racer
   :ensure t
@@ -277,8 +277,6 @@ BINDINGS - the bindings"
   :ensure t
   :config
   (add-hook 'rust-mode-hook #'flycheck-rust-setup))
-
-(add-hook 'rust-mode-hook 'cargo-minor-mode)
 
 (evil-leader/set-key-for-mode 'rust-mode
   "=" 'rust-format-buffer
