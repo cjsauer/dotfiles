@@ -52,7 +52,11 @@
   (setq doom-themes-enable-bold t
 	doom-themes-enable-italic t)
   :config
-  (load-theme 'doom-one t))
+  ;; (load-theme 'doom-one t)
+  ;; (load-theme 'doom-vibrant t)
+  ;; (load-theme 'doom-nord t)
+  (load-theme 'doom-spacegrey t)
+  )
 
 ;; Vim mode
 (use-package evil-leader
@@ -77,6 +81,11 @@
   :ensure t
   :config
   (global-evil-surround-mode 1))
+
+(use-package evil-commentary
+  :ensure t
+  :config
+  (evil-commentary-mode))
 
 ;; Auto-completion
 (use-package company
@@ -256,6 +265,20 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Clojure
 
+(use-package cider
+  :ensure t)
+
+(evil-leader/set-key-for-mode 'clojure-mode
+  "si" 'cider-jack-in
+  "ss" 'cider-switch-to-repl-buffer
+  "eb" 'cider-eval-buffer
+  "ee" 'cider-eval-last-sexp
+  "ef" 'cider-eval-defun-at-point)
+
+(which-key-add-major-mode-key-based-replacements 'clojure-mode
+  ",e" "eval"
+  ",s" "repl")
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Rust
 
@@ -293,7 +316,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (flycheck-rust exec-path-from-shell flycheck racer slime cargo rust-mode evil-surround paredit general magit helm-projectile projectile which-key helm company evil-escape evil-leader doom-themes use-package))))
+    (evil-commentary cider flycheck-rust exec-path-from-shell flycheck racer slime cargo rust-mode evil-surround paredit general magit helm-projectile projectile which-key helm company evil-escape evil-leader doom-themes use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
