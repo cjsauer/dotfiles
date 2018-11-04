@@ -21,6 +21,9 @@
 (show-paren-mode 1)
 (electric-pair-mode 1)
 
+;; Emacs web browser wrap long lines
+(add-hook 'eww-mode-hook 'visual-line-mode)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; Package installation/configuration
@@ -64,6 +67,10 @@
   :prefix my-prefix-key
   :non-normal-prefix my-non-normal-prefix-key)
 
+(general-create-definer defldrkeys
+  :states '(normal emacs)
+  :prefix my-leader-key)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Doom themes
 
@@ -81,12 +88,6 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Evil (Vim) mode
-
-(use-package evil-leader
-  :ensure t
-  :config
-  (setq evil-leader/leader my-leader-key)
-  (global-evil-leader-mode))
 
 (use-package evil
   :ensure t
@@ -238,8 +239,6 @@
 
 
 
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; Language support
@@ -276,11 +275,13 @@
  "kb" 'paredit-backward-slurp-sexp
  "kk" 'paredit-kill)
 
-(evil-leader/set-key-for-mode 'emacs-lisp-mode
+(defldrkeys
+  :keymaps 'emacs-lisp-mode
   "eb" 'eval-buffer
   "ee" 'eval-last-sexp)
 
-(evil-leader/set-key-for-mode 'lisp-mode
+(defldrkeys
+  :keymaps 'lisp-mode
   "si" 'slime
   "ss" 'inferior-lisp
   "sd" 'slime-documentation
@@ -295,13 +296,17 @@
   (ldr "e") "eval"
   (ldr "s") "repl")
 
+(which-key-add-major-mode-key-based-replacements 'emacs-lisp-mode
+  (ldr "e") "eval")
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Clojure
 
 (use-package cider
   :ensure t)
 
-(evil-leader/set-key-for-mode 'clojure-mode
+(defldrkeys
+  :keymaps 'clojure-mode
   "si" 'cider-jack-in
   "ss" 'cider-switch-to-repl-buffer
   "eb" 'cider-eval-buffer
@@ -334,7 +339,8 @@
   :config
   (add-hook 'rust-mode-hook #'flycheck-rust-setup))
 
-(evil-leader/set-key-for-mode 'rust-mode
+(defldrkeys
+  :keymaps 'rust-mode
   "=" 'rust-format-buffer
   "eb" 'cargo-process-build
   "er" 'cargo-process-run)
@@ -353,7 +359,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (evil-commentary cider flycheck-rust exec-path-from-shell flycheck racer slime cargo rust-mode evil-surround paredit general magit helm-projectile projectile which-key helm company evil-escape evil-leader doom-themes use-package))))
+    (evil-commentary cider flycheck-rust exec-path-from-shell flycheck racer slime cargo rust-mode evil-surround paredit general magit helm-projectile projectile which-key helm company evil-escape doom-themes use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
