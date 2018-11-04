@@ -49,7 +49,8 @@
 (use-package evil-leader
   :ensure t
   :config
-  (setq evil-leader/leader ","))
+  (setq evil-leader/leader ",")
+  (global-evil-leader-mode))
 
 (use-package evil
   :ensure t
@@ -62,6 +63,11 @@
   (setq-default evil-escape-key-sequence "fd")
   :config
   (evil-escape-mode 1))
+
+(use-package evil-surround
+  :ensure t
+  :config
+  (global-evil-surround-mode 1))
 
 ;; Auto-completion
 (use-package company
@@ -129,11 +135,19 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(general-define-key
- :states '(normal visual insert emacs)
- :prefix "SPC"
- :non-normal-prefix "M-SPC"
 
+;; TODO: replace this function with general's prefix key helpers
+;; https://github.com/noctuid/general.el#general-examples
+
+(defmacro general-define-SPC-key (&rest bindings)
+  (print bindings)
+  `(general-define-key
+    :states '(normal emacs)
+    :prefix "SPC"
+    :non-normal-prefix "M-SPC"
+    ,@bindings))
+
+(general-define-SPC-key
  ;; Spacemacs style M-x menu
  "SPC" '(helm-M-x :which-key "M-x")
 
@@ -151,6 +165,7 @@
  "wh"  '(evil-window-left :which-key "left")
  "wl"  '(evil-window-right :which-key "right")
  "wd"  '(evil-window-delete :which-key "delete")
+ "wr"  '(evil-window-rotate-upwards :which-key "rotate windows")
 
  ;; Buffers
  "bb"  '(helm-buffers-list :which-key "find/list buffers")
@@ -173,7 +188,7 @@
  "]b"  'evil-next-buffer)
 
 ;; More informative which-key prefix titles
-(which-key-add-key-based-replacements
+(which-key-declare-prefixes
   "SPC p" "projectile"
   "SPC f" "files"
   "SPC w" "windows"
@@ -186,15 +201,64 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Rust 
+;; Lisp(s)
 
+(use-package paredit
+  :ensure t)
+
+(use-package slime
+  :ensure t
+  :config
+  (setq inferior-lisp-program "sbcl"))
+
+(general-define-SPC-key
+ ;; lispy edits
+ "kw" 'paredit-wrap-sexp
+ "ks" 'paredit-forward-slurp-sexp
+ "kb" 'paredit-backward-slurp-sexp
+ "kk" 'paredit-kill)
+
+(which-key-add-key-based-replacements
+  "SPC k" "lisp/paredit")
+
+(evil-leader/set-key-for-mode 'emacs-lisp-mode
+  "eb" 'eval-buffer
+  "ee" 'eval-last-sexp)
+
+(evil-leader/set-key-for-mode 'lisp-mode
+  "si" 'slime
+  "ss" 'inferior-lisp
+  "sd" 'slime-documentation
+  "sq" 'slime-quit-lisp
+  "eb" 'slime-eval-buffer
+  "ee" 'slime-eval-last-expression)
+
+(which-key-declare-prefixes-for-mode 'lisp-mode
+  ",e" "eval"
+  ",s" "repl")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Clojure
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Rust 
 
+(use-package rust-mode
+  :ensure t)
+
+(use-package cargo
+  :ensure t)
+
+(add-hook 'rust-mode-hook 'cargo-minor-mode)
+
+(evil-leader/set-key-for-mode 'rust-mode
+  "=" 'rust-format-buffer
+  "eb" 'cargo-process-build
+  "er" 'cargo-process-run)
+
+(which-key-declare-prefixes-for-mode 'rust-mode
+  ",e" "cargo")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -203,7 +267,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (general magit helm-projectile projectile which-key helm company evil-escape evil-leader doom-themes use-package))))
+    (slime cargo rust-mode evil-surround paredit general magit helm-projectile projectile which-key helm company evil-escape evil-leader doom-themes use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
