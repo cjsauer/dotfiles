@@ -65,18 +65,6 @@
   :non-normal-prefix my-non-normal-prefix-key)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Which Key - key completion help
-
-(use-package which-key
-  :ensure t
-  :init
-  (setq which-key-separator " "
-	which-key-prefix-prefix "+")
-  :config
-  (which-key-mode 1)
-  (setq which-key-idle-secondary-delay 0))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Doom themes
 
 (use-package doom-themes
@@ -153,6 +141,18 @@
 	helm-autoresize-min-height 20)
   :config
   (helm-mode 1))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Which Key - key completion help
+
+(use-package which-key
+  :ensure t
+  :init
+  (setq which-key-separator " "
+	which-key-prefix-prefix "+")
+  :config
+  (which-key-mode 1)
+  (setq which-key-idle-secondary-delay 0))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Projectile - project management
@@ -341,6 +341,10 @@
 
 (which-key-add-major-mode-key-based-replacements 'rust-mode
   (ldr "e") "cargo")
+
+
+
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
