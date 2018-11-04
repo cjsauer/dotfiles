@@ -1,3 +1,9 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; Emacs Configuration
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; Minimal UI
 (tool-bar-mode -1)
 (tooltip-mode -1)
@@ -10,6 +16,12 @@
 (setq show-paren-delay 0)
 (show-paren-mode 1)
 (electric-pair-mode 1)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; Package installation/configuration
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Package configs
 (require 'package)
@@ -34,6 +46,11 @@
   (load-theme 'doom-one t))
 
 ;; Vim mode
+(use-package evil-leader
+  :ensure t
+  :config
+  (setq evil-leader/leader ","))
+
 (use-package evil
   :ensure t
   :config
@@ -103,70 +120,90 @@
 (use-package magit
   :ensure t)
 
-;; Custom keybindings
 (use-package general
-  :ensure t
-  :config
-  
-  ;; Spacebar keybindings
-  (general-define-key
-   :states '(normal visual insert emacs)
-   :prefix "SPC"
-   :non-normal-prefix "M-SPC"
+  :ensure t)
 
-   ;; Spacemacs style SPC menu
-   "SPC" '(helm-M-x :which-key "M-x")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; Global keybindings
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-   ;;;; Projectile
-   "pf"  '(helm-projectile-find-file :which-key "find files")
+(general-define-key
+ :states '(normal visual insert emacs)
+ :prefix "SPC"
+ :non-normal-prefix "M-SPC"
 
-   ;;;; Files
-   "ff"  '(helm-find-files :which-key "find files")
+ ;; Spacemacs style M-x menu
+ "SPC" '(helm-M-x :which-key "M-x")
 
-   ;;;; Windows
-   "ws"  '(evil-window-split :which-key "split horizontal")
-   "wv"  '(evil-window-vsplit :which-key "split vertical")
-   "wk"  '(evil-window-up :which-key "up")
-   "wj"  '(evil-window-down :which-key "down")
-   "wh"  '(evil-window-left :which-key "left")
-   "wl"  '(evil-window-right :which-key "right")
-   "wd"  '(evil-window-delete :which-key "delete")
+ ;; Projectile
+ "pf"  '(helm-projectile-find-file :which-key "find files")
 
-   ;;;; Buffers
-   "bb"  '(helm-buffers-list :which-key "find/list buffers")
-   "bd"  '(evil-delete-buffer :which-key "delete buffer")
+ ;; Files
+ "ff"  '(helm-find-files :which-key "find files")
 
-   ;;;; Git
-   "gs"  'magit-status
-   "ga"  'magit-stage
-   "gc"  'magit-commit
-   "gp"  'magit-push-popup
-   "gd"  'magit-diff-buffer-file
-   "gD"  'magit-diff-popup
-   )
+ ;; Windows
+ "ws"  '(evil-window-split :which-key "split horizontal")
+ "wv"  '(evil-window-vsplit :which-key "split vertical")
+ "wk"  '(evil-window-up :which-key "up")
+ "wj"  '(evil-window-down :which-key "down")
+ "wh"  '(evil-window-left :which-key "left")
+ "wl"  '(evil-window-right :which-key "right")
+ "wd"  '(evil-window-delete :which-key "delete")
 
-  ;; Vim normal mode keybindings
-  (general-define-key
-   :states '(normal emacs)
-   "C-u" 'evil-scroll-up
-   "[b"  'evil-prev-buffer
-   "]b"  'evil-next-buffer)
+ ;; Buffers
+ "bb"  '(helm-buffers-list :which-key "find/list buffers")
+ "bd"  '(evil-delete-buffer :which-key "delete buffer")
 
-  ;; Which-key prefix titles
-  (which-key-add-key-based-replacements
-    "SPC p" "projectile"
-    "SPC f" "files"
-    "SPC w" "windows"
-    "SPC b" "buffers"
-    "SPC g" "git"))
+ ;; Git
+ "gs"  'magit-status
+ "ga"  'magit-stage
+ "gc"  'magit-commit
+ "gp"  'magit-push-popup
+ "gd"  'magit-diff-buffer-file
+ "gD"  'magit-diff-popup
+ )
 
-;; Custom
+;; Vim normal mode keybindings
+(general-define-key
+ :states '(normal emacs)
+ "C-u" 'evil-scroll-up
+ "[b"  'evil-prev-buffer
+ "]b"  'evil-next-buffer)
+
+;; More informative which-key prefix titles
+(which-key-add-key-based-replacements
+  "SPC p" "projectile"
+  "SPC f" "files"
+  "SPC w" "windows"
+  "SPC b" "buffers"
+  "SPC g" "git")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; Language support
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Rust 
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Clojure
+
+
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (magit doom-themes evil-escape evil use-package))))
+ '(package-selected-packages
+   (quote
+    (general magit helm-projectile projectile which-key helm company evil-escape evil-leader doom-themes use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
