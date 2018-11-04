@@ -51,6 +51,7 @@
 
 ;; Constants
 (defconst my-leader-key ",")
+(defconst my-non-normal-leader-key "M-,")
 (defconst my-prefix-key "SPC")
 (defconst my-non-normal-prefix-key "M-SPC")
 
@@ -69,7 +70,8 @@
 
 (general-create-definer defldrkeys
   :states '(normal emacs)
-  :prefix my-leader-key)
+  :prefix my-leader-key
+  :non-normal-prefix my-non-normal-leader-key)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Doom themes
@@ -92,6 +94,7 @@
 (use-package evil
   :ensure t
   :config
+  (unbind-key (kbd ",") evil-motion-state-map)
   (evil-mode 1))
 
 (use-package evil-escape
@@ -275,13 +278,11 @@
  "kb" 'paredit-backward-slurp-sexp
  "kk" 'paredit-kill)
 
-(defldrkeys
-  :keymaps 'emacs-lisp-mode
+(defldrkeys emacs-lisp-mode-map
   "eb" 'eval-buffer
   "ee" 'eval-last-sexp)
 
-(defldrkeys
-  :keymaps 'lisp-mode
+(defldrkeys lisp-mode-map
   "si" 'slime
   "ss" 'inferior-lisp
   "sd" 'slime-documentation
@@ -305,8 +306,7 @@
 (use-package cider
   :ensure t)
 
-(defldrkeys
-  :keymaps 'clojure-mode
+(defldrkeys clojure-mode-map
   "si" 'cider-jack-in
   "ss" 'cider-switch-to-repl-buffer
   "eb" 'cider-eval-buffer
@@ -339,8 +339,7 @@
   :config
   (add-hook 'rust-mode-hook #'flycheck-rust-setup))
 
-(defldrkeys
-  :keymaps 'rust-mode
+(defldrkeys rust-mode-map
   "=" 'rust-format-buffer
   "eb" 'cargo-process-build
   "er" 'cargo-process-run)
