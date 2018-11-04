@@ -21,19 +21,6 @@
 (show-paren-mode 1)
 (electric-pair-mode 1)
 
-;; Constants
-(defconst my-leader-key ",")
-(defconst my-prefix-key "SPC")
-(defconst my-non-normal-prefix-key "M-SPC")
-
-(defmacro pfx (key)
-  "Prepend my-prefix-key and a space before KEY."
-  `(concat my-prefix-key " " ,key))
-
-(defmacro ldr (key)
-  "Prepend my-leader-key and a space before KEY."
-  `(concat my-leader-key " " ,key))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; Package installation/configuration
@@ -53,7 +40,45 @@
   (package-install 'use-package))
 (require 'use-package)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Keybinding setup and helpers
+
+(use-package general
+  :ensure t)
+
+;; Constants
+(defconst my-leader-key ",")
+(defconst my-prefix-key "SPC")
+(defconst my-non-normal-prefix-key "M-SPC")
+
+(defmacro pfx (key)
+  "Prepend my-prefix-key and a space before KEY."
+  `(concat my-prefix-key " " ,key))
+
+(defmacro ldr (key)
+  "Prepend my-leader-key and a space before KEY."
+  `(concat my-leader-key " " ,key))
+
+(general-create-definer defprefixkeys
+  :states '(normal emacs)
+  :prefix my-prefix-key
+  :non-normal-prefix my-non-normal-prefix-key)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Which Key - key completion help
+
+(use-package which-key
+  :ensure t
+  :init
+  (setq which-key-separator " "
+	which-key-prefix-prefix "+")
+  :config
+  (which-key-mode 1)
+  (setq which-key-idle-secondary-delay 0))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Doom themes
+
 (use-package doom-themes
   :ensure t
   :init
@@ -66,7 +91,9 @@
   (load-theme 'doom-spacegrey t)
   )
 
-;; Vim mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Evil (Vim) mode
+
 (use-package evil-leader
   :ensure t
   :config
@@ -95,13 +122,17 @@
   :config
   (evil-commentary-mode))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Auto-completion
+
 (use-package company
   :ensure t
   :config
   (global-company-mode))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Helm - Incremental completion and narrowing selections
+
 (use-package helm
   :ensure t
   :init
@@ -123,17 +154,9 @@
   :config
   (helm-mode 1))
 
-;; Which Key - key completion help
-(use-package which-key
-  :ensure t
-  :init
-  (setq which-key-separator " "
-	which-key-prefix-prefix "+")
-  :config
-  (which-key-mode 1)
-  (setq which-key-idle-secondary-delay 0))
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Projectile - project management
+
 (use-package projectile
   :ensure t
   :init
@@ -148,12 +171,14 @@
   :config
   (helm-projectile-on))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Git support
+
 (use-package magit
   :ensure t)
 
-(use-package general
-  :ensure t)
+
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -161,11 +186,6 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-(general-create-definer defprefixkeys
-  :states '(normal emacs)
-  :prefix my-prefix-key
-  :non-normal-prefix my-non-normal-prefix-key)
 
 (defprefixkeys
  ;; Spacemacs style M-x menu
@@ -214,6 +234,10 @@
   (pfx "w") "windows"
   (pfx "b") "buffers"
   (pfx "g") "git")
+
+
+
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
