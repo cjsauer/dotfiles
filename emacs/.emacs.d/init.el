@@ -26,6 +26,14 @@
 (defconst my-prefix-key "SPC")
 (defconst my-non-normal-prefix-key "M-SPC")
 
+(defmacro pfx (key)
+  "Prepend my-prefix-key and a space before KEY."
+  `(concat my-prefix-key " " ,key))
+
+(defmacro ldr (key)
+  "Prepend my-leader-key and a space before KEY."
+  `(concat my-leader-key " " ,key))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; Package installation/configuration
@@ -62,7 +70,7 @@
 (use-package evil-leader
   :ensure t
   :config
-  (setq evil-leader/leader ",")
+  (setq evil-leader/leader my-leader-key)
   (global-evil-leader-mode))
 
 (use-package evil
@@ -201,11 +209,11 @@
 
 ;; More informative which-key prefix titles
 (which-key-add-key-based-replacements
-  "SPC p" "projectile"
-  "SPC f" "files"
-  "SPC w" "windows"
-  "SPC b" "buffers"
-  "SPC g" "git")
+  (pfx "p") "projectile"
+  (pfx "f") "files"
+  (pfx "w") "windows"
+  (pfx "b") "buffers"
+  (pfx "g") "git")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -256,11 +264,11 @@
   "ee" 'slime-eval-last-expression)
 
 (which-key-add-key-based-replacements
-  "SPC k" "lisp/paredit")
+  (pfx "k") "lisp/paredit")
 
 (which-key-add-major-mode-key-based-replacements 'lisp-mode
-  ",e" "eval"
-  ",s" "repl")
+  (ldr "e") "eval"
+  (ldr "s") "repl")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Clojure
@@ -276,8 +284,8 @@
   "ef" 'cider-eval-defun-at-point)
 
 (which-key-add-major-mode-key-based-replacements 'clojure-mode
-  ",e" "eval"
-  ",s" "repl")
+  (ldr "e") "eval"
+  (ldr "s") "repl")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Rust
@@ -307,7 +315,7 @@
   "er" 'cargo-process-run)
 
 (which-key-add-major-mode-key-based-replacements 'rust-mode
-  ",e" "cargo")
+  (ldr "e") "cargo")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
