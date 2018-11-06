@@ -305,9 +305,20 @@
 (use-package cider
   :ensure t)
 
+(defun cider-load-buffer-and-switch-to-ns ()
+  "Load current Clojure ns and switch to it in the repl."
+  (interactive)
+  (cider-load-buffer)
+  (cider-repl-set-ns (cider-current-ns))
+  (cider-switch-to-repl-buffer))
+
 (defldrkeys clojure-mode-map
   "si" 'cider-jack-in
   "ss" 'cider-switch-to-repl-buffer
+  "sN" 'cider-load-buffer-and-switch-to-ns
+  "mm" 'cider-macroexpand-1
+  "ma" 'cider-macroexpand-all
+
   "eb" 'cider-eval-buffer
   "ee" 'cider-eval-last-sexp
   "ef" 'cider-eval-defun-at-point)
