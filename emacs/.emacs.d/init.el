@@ -24,6 +24,13 @@
 ;; Emacs web browser wrap long lines
 (add-hook 'eww-mode-hook 'visual-line-mode)
 
+;; Store backups in centralized location
+(setq backup-directory-alist
+      `(("." . ,(concat user-emacs-directory "backups"))))
+
+;; Set envoironment
+(setenv "SHELL" "/bin/zsh")
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; Package installation/configuration
@@ -194,11 +201,15 @@
  ;; Spacemacs style M-x menu
  "SPC" '(helm-M-x :which-key "M-x")
 
+ ;; Applications
+ "as"  'shell
+
  ;; Projectile
  "pf"  '(helm-projectile-find-file :which-key "find files")
 
  ;; Files
  "ff"  '(helm-find-files :which-key "find files")
+ "fd"  (lambda () (interactive) (find-file "~/.emacs.d/init.el"))
 
  ;; Windows
  "ws"  '(evil-window-split :which-key "split horizontal")
@@ -260,6 +271,12 @@
   (exec-path-from-shell-initialize))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; HTML
+
+;; auto-close tags
+(setq-default sgml-quick-keys 'indent)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Lisp(s)
 
 (use-package paredit
@@ -314,14 +331,19 @@
 
 (defldrkeys clojure-mode-map
   "si" 'cider-jack-in
+  "sc" 'cider-connect
   "ss" 'cider-switch-to-repl-buffer
   "sN" 'cider-load-buffer-and-switch-to-ns
+  "sq" 'cider-quit
   "mm" 'cider-macroexpand-1
   "ma" 'cider-macroexpand-all
 
   "eb" 'cider-eval-buffer
   "ee" 'cider-eval-last-sexp
   "ef" 'cider-eval-defun-at-point)
+
+(defldrkeys cider-repl-mode
+  "sq" 'cider-quit)
 
 (which-key-add-major-mode-key-based-replacements 'clojure-mode
   (ldr "e") "eval"
