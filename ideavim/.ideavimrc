@@ -1,0 +1,38 @@
+""" Map leader to space ---------------------
+let mapleader=","
+
+""" Plugins  --------------------------------
+set surround
+set multiple-cursors
+set commentary
+set argtextobj
+set textobj-entire
+set ReplaceWithRegister
+
+""" Plugin settings -------------------------
+let g:argtextobj_pairs="[:],(:),<:>"
+
+""" Common settings -------------------------
+set showmode
+set so=5
+set incsearch
+set nu
+
+""" Idea specific settings ------------------
+set ideajoin
+set ideastatusicon=gray
+set idearefactormode=keep
+
+""" Mappings --------------------------------
+imap fd <Esc>
+set timeoutlen=1000
+nmap <leader>ee :action :cursive.repl.actions/run-last-sexp<CR>
+nmap <leader>ef :action :cursive.repl.actions/run-top-sexp<CR>
+nmap <leader>eb :action :cursive.repl.actions/load-file<CR>
+nmap <leader>ss :action :cursive.repl.actions/jump-to-repl<CR>
+nmap <Space>kw :action :cursive.actions.paredit/wrap-paren<CR>
+nmap <Space>ks :action :cursive.actions.paredit/slurp-forwards<CR>
+nmap <leader>tf :action :cursive.actions.paredit/thread-form<CR>
+nmap <leader>tu :action :cursive.actions.paredit/unthread-form<CR>
+nmap [b :action PreviousTab<CR>
+nmap ]b :action NextTab<CR>
