@@ -34,5 +34,6 @@ nmap <Space>kw :action :cursive.actions.paredit/wrap-paren<CR>
 nmap <Space>ks :action :cursive.actions.paredit/slurp-forwards<CR>
 nmap <leader>tf :action :cursive.actions.paredit/thread-form<CR>
 nmap <leader>tu :action :cursive.actions.paredit/unthread-form<CR>
+nmap <leader>fl :action ReformatCode<CR>
 nmap [b :action PreviousTab<CR>
 nmap ]b :action NextTab<CR>

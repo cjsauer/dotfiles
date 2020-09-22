@@ -31,6 +31,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     (haskell :variables haskell-enable-hindent t)
      python
      ruby
      asciidoc
@@ -67,6 +68,7 @@ values."
    dotspacemacs-additional-packages
    '(
      flycheck-clj-kondo
+     dante
      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -323,20 +325,31 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   ;; Midje macro configuration https://github.com/marick/Midje
+  (set-face-attribute 'default nil :height 200)
   (setq web-mode-markup-indent-offset 2) ; web-mode, html tag in html file
   (setq web-mode-css-indent-offset 2) ; web-mode, css in html file
   (setq web-mode-code-indent-offset 2) ; web-mode, js code in html file
   (setq css-indent-offset 2) ; css-mode
-  (setq flycheck-global-modes '(enh-ruby-mode ruby-mode rust-mode php-mode yaml-mode
+  (setq flycheck-global-modes '(enh-ruby-mode ruby-mode rust-mode php-mode yaml-mode haskell-mode
                                 json-mode js2-mode coffee-mode web-mode slim-mode scss-mode
                                 sass-mode pug-mode less-mode haml-mode clojure-mode clojurescript-mode))
   (setq php-backend 'lsp)
+  (setq python-shell-interpreter "python3")
+  (add-to-list 'auto-mode-alist '("\\.svelte$" . web-mode))
   (use-package clojure-mode
     :ensure t
     :config
     (require 'flycheck-clj-kondo))
-  (add-to-list 'auto-mode-alist '("\\.svelte$" . web-mode))
-  (setq python-shell-interpreter "python3")
+  (use-package dante
+    :ensure t
+    :after haskell-mode
+    :commands 'dante-mode
+    :init
+    (add-hook 'haskell-mode-hook 'flycheck-mode)
+    (add-hook 'haskell-mode-hook 'dante-mode))
+  (spacemacs/set-leader-keys-for-major-mode 'haskell-mode "dt" 'dante-type-at)
+  (spacemacs/set-leader-keys-for-major-mode 'haskell-mode "di" 'dante-info)
+  (spacemacs/set-leader-keys-for-major-mode 'haskell-mode "ee" 'dante-eval-block)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -355,7 +368,7 @@ you should place your code here."
  '(mode-require-final-newline nil)
  '(package-selected-packages
    (quote
-    (yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode company-anaconda anaconda-mode pythonic flycheck-clj-kondo rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake minitest chruby bundler inf-ruby adoc-mode markup-faces parseedn parseclj a lv transient toml-mode racer flycheck-rust cargo rust-mode phpunit phpcbf php-extras php-auto-yasnippets drupal-mode php-mode yaml-mode web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor js2-mode js-doc company-tern dash-functional tern coffee-mode glsl-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data xterm-color unfill smeargle shell-pop orgit mwim multi-term mmm-mode markdown-toc markdown-mode magit-gitflow helm-gitignore helm-company helm-c-yasnippet gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md fuzzy flycheck-pos-tip pos-tip flycheck evil-magit magit magit-popup git-commit ghub treepy graphql with-editor eshell-z eshell-prompt-extras esh-help diff-hl company-statistics company clojure-snippets clj-refactor inflections edn multiple-cursors paredit peg cider-eval-sexp-fu cider sesman queue clojure-mode auto-yasnippet yasnippet ac-ispell auto-complete ws-butler winum volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg eval-sexp-fu highlight elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed ace-link ace-jump-helm-line helm helm-core popup which-key undo-tree org-plus-contrib hydra evil-unimpaired f s dash async aggressive-indent adaptive-wrap ace-window avy)))
+    (lcr dante intero hlint-refactor hindent helm-hoogle haskell-snippets flycheck-haskell company-ghci company-ghc ghc haskell-mode company-cabal cmm-mode yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode company-anaconda anaconda-mode pythonic flycheck-clj-kondo rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake minitest chruby bundler inf-ruby adoc-mode markup-faces parseedn parseclj a lv transient toml-mode racer flycheck-rust cargo rust-mode phpunit phpcbf php-extras php-auto-yasnippets drupal-mode php-mode yaml-mode web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor js2-mode js-doc company-tern dash-functional tern coffee-mode glsl-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data xterm-color unfill smeargle shell-pop orgit mwim multi-term mmm-mode markdown-toc markdown-mode magit-gitflow helm-gitignore helm-company helm-c-yasnippet gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md fuzzy flycheck-pos-tip pos-tip flycheck evil-magit magit magit-popup git-commit ghub treepy graphql with-editor eshell-z eshell-prompt-extras esh-help diff-hl company-statistics company clojure-snippets clj-refactor inflections edn multiple-cursors paredit peg cider-eval-sexp-fu cider sesman queue clojure-mode auto-yasnippet yasnippet ac-ispell auto-complete ws-butler winum volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg eval-sexp-fu highlight elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed ace-link ace-jump-helm-line helm helm-core popup which-key undo-tree org-plus-contrib hydra evil-unimpaired f s dash async aggressive-indent adaptive-wrap ace-window avy)))
  '(require-final-newline nil)
  '(safe-local-variable-values
    (quote
